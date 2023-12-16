@@ -33,7 +33,7 @@ public class Main {
 
                     if (nextUrl.startsWith(targetUrl)) {
                         graph.computeIfAbsent(currentUrl, k -> new HashSet<>()).add(nextUrl);
-                        System.out.println("Found link: " + nextUrl);
+                        System.out.println("Talált Link: " + nextUrl);
                         crawlUrl(nextUrl, targetUrl);
                     }
                 }
