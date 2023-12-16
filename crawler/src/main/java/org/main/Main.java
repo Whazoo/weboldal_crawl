@@ -33,7 +33,7 @@ public class Main {
 
                     if (nextUrl.startsWith(targetUrl)) {
                         graph.computeIfAbsent(currentUrl, k -> new HashSet<>()).add(nextUrl);
-                        System.out.println("Found link: " + nextUrl); // Új sor
+                        System.out.println("Found link: " + nextUrl);
                         crawlUrl(nextUrl, targetUrl);
                     }
                 }
@@ -50,12 +50,12 @@ public class Main {
 
     public static void main(String[] args) {
         Main webCrawler = new Main();
-        webCrawler.crawl("https://hu.wikipedia.org/wiki/PlayStation_(konzol)", "https://hu.wikipedia.org/wiki/Nintendo");
+        webCrawler.crawl("https://en.wikipedia.org/wiki/Java_(programming_language)", "https://en.wikipedia.org/wiki/Python_(programming_language)");
 
         Map<String, Set<String>> graph = webCrawler.getGraph();
 
         ShortestPath pathFinder = new ShortestPath();
-        int shortestPathLength = pathFinder.findShortestPath(graph, "https://hu.wikipedia.org/wiki/PlayStation_(konzol)", "https://hu.wikipedia.org/wiki/Nintendo");
+        int shortestPathLength = pathFinder.findShortestPath(graph, "https://en.wikipedia.org/wiki/Java_(programming_language)", "https://en.wikipedia.org/wiki/Python_(programming_language)");
 
         System.out.println("Legrövidebb Elérési Út Hossza:: " + shortestPathLength);
     }
