@@ -28,20 +28,25 @@ public class Main {
                 Document document = Jsoup.connect(currentUrl).get();
                 Elements links = document.select("a[href]");
 
-                for (Element link : links) {
-                    String nextUrl = link.absUrl("href");
-
-                    if (nextUrl.startsWith(targetUrl)) {
-                        graph.computeIfAbsent(currentUrl, k -> new HashSet<>()).add(nextUrl);
-                        System.out.println("Talált Link: " + nextUrl);
-                        crawlUrl(nextUrl, targetUrl);
-                    }
-                }
+                processLinks(currentUrl, targetUrl, links);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
+    private void processLinks(String currentUrl, String targetUrl, Elements links) {
+        for (Element link : links) {
+            String nextUrl = link.absUrl("href");
+
+            if (nextUrl.startsWith(targetUrl)) {
+                graph.computeIfAbsent(currentUrl, k -> new HashSet<>()).add(nextUrl);
+                System.out.println("Talált Link: " + nextUrl);
+                crawlUrl(nextUrl, targetUrl);
+            }
+        }
+    }
+
 
 
     public Map<String, Set<String>> getGraph() {
